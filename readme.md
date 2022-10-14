@@ -23,7 +23,7 @@ Add your Paystack secret key to your backend's environment file.
 ```
 // apps/backend/.env or apps/backend/.env.production for production env.
 
-PAYSTACK_SECRET_KEY=
+PAYSTACK_SECRET_KEY=sk_test|live_XXXXXXXXXXXXXX
 ```
 
 Add your Paystack secret key to your storefront's environment file.
@@ -31,7 +31,7 @@ Add your Paystack secret key to your storefront's environment file.
 ```
 // apps/storefront/.env
 
-NEXT_PAYSTACK_PUBLIC_KEY=
+NEXT_PAYSTACK_PUBLIC_KEY=pk_test|live_XXXXXXXXXXXXXX
 ```
 
 ### Install dependencies

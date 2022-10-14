@@ -1,7 +1,7 @@
 {
-  "name": "medusa-monorepo",
+  "name": "medusa-payment-paystack-demo",
   "version": "1.0.0",
-  "description": "Monorepo for Medusa development",
+  "description": "Monorepo for Medusa Paystack integration demo",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,7 +10,6 @@
     "build": "npx nx run-many --target=build --projects=backend,admin,storefront",
     "affected:build": "nx affected:build",
     "graph": "nx graph"
-
   },
   "keywords": [
     "medusa",

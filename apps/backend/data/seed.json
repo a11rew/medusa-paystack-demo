@@ -32,7 +32,7 @@
       "name": "GH",
       "currency_code": "ghs",
       "tax_rate": 0,
-      "payment_providers": ["manual"],
+      "payment_providers": ["manual", "paystack"],
       "fulfillment_providers": ["manual"],
       "countries": ["gh"]
     },
@@ -41,7 +41,7 @@
       "name": "NG",
       "currency_code": "ngn",
       "tax_rate": 0,
-      "payment_providers": ["manual"],
+      "payment_providers": ["manual", "paystack"],
       "fulfillment_providers": ["manual"],
       "countries": ["ng"]
     }
