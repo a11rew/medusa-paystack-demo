@@ -21,9 +21,13 @@ const PaymentInfoMap: Record<string, { title: string; description: string }> = {
     title: "PayPal",
     description: "Secure payment with PayPal",
   },
+  paystack: {
+    title: "Paystack",
+    description: "Secure payment with Paystack",
+  },
   manual: {
-    title: "Test payment",
-    description: "Test payment using medusa-payment-manual",
+    title: "Pay on Delivery",
+    description: "Make payment on delivery",
   },
 }
 
@@ -49,10 +53,10 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
       >
         <Radio checked={selected} />
         <div className="flex flex-col text-left">
-          <h3 className="text-base-semi leading-none text-gray-900">
+          <h3 className="leading-none text-gray-900 text-base-semi">
             {PaymentInfoMap[paymentSession.provider_id].title}
           </h3>
-          <span className="text-gray-700 text-small-regular mt-2">
+          <span className="mt-2 text-gray-700 text-small-regular">
             {PaymentInfoMap[paymentSession.provider_id].description}
           </span>
           {selected && (

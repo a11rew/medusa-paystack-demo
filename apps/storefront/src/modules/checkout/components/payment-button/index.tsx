@@ -1,6 +1,6 @@
 import { useCheckout } from "@lib/context/checkout-context"
 import { PaymentSession } from "@medusajs/medusa"
-import Button from "@modules/common/components/button"
+import Button, { ThemedPaystackButton } from "@modules/common/components/button"
 import Spinner from "@modules/common/icons/spinner"
 import { OnApproveActions, OnApproveData } from "@paypal/paypal-js"
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
@@ -10,6 +10,12 @@ import React, { useEffect, useState } from "react"
 
 type PaymentButtonProps = {
   paymentSession?: PaymentSession | null
+}
+
+const PAYSTACK_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
+
+if (!PAYSTACK_PUBLIC_KEY) {
+  console.error("Paystack Public Key not set")
 }
 
 const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
@@ -52,6 +58,15 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
     case "paypal":
       return (
         <PayPalPaymentButton notReady={notReady} session={paymentSession} />
+      )
+    case "paystack":
+      return (
+        <ThemedPaystackButton
+          currency={String(cart?.region.currency_code)}
+          amount={Number(cart?.total)}
+          email={String(cart?.email)}
+          publicKey={String(PAYSTACK_PUBLIC_KEY)}
+        />
       )
     default:
       return <Button disabled>Select a payment method</Button>
@@ -154,7 +169,7 @@ const StripePaymentButton = ({
         {submitting ? <Spinner /> : "Checkout"}
       </Button>
       {errorMessage && (
-        <div className="text-red-500 text-small-regular mt-2">
+        <div className="mt-2 text-red-500 text-small-regular">
           {errorMessage}
         </div>
       )}
@@ -208,7 +223,7 @@ const PayPalPaymentButton = ({
       }}
     >
       {errorMessage && (
-        <span className="text-rose-500 mt-4">{errorMessage}</span>
+        <span className="mt-4 text-rose-500">{errorMessage}</span>
       )}
       <PayPalButtons
         style={{ layout: "horizontal" }}
