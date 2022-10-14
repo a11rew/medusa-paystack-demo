@@ -1,0 +1,24 @@
+{
+  "name": "medusa-monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo for Medusa development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "pnpm run start --stream --parallel --filter \"{apps}\"",
+    "start": "npx nx run-many --target=start --projects=backend,admin,storefront",
+    "build": "npx nx run-many --target=build --projects=backend,admin,storefront",
+    "affected:build": "nx affected:build",
+    "graph": "nx graph"
+
+  },
+  "keywords": [
+    "medusa",
+    "ecommerce"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nx": "^14.8.2"
+  }
+}
