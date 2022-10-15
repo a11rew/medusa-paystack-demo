@@ -1,26 +1,24 @@
 import { useCheckout } from "@lib/context/checkout-context"
 import { PaymentSession } from "@medusajs/medusa"
-import Button, { ThemedPaystackButton } from "@modules/common/components/button"
+import Button from "@modules/common/components/button"
 import Spinner from "@modules/common/icons/spinner"
 import { OnApproveActions, OnApproveData } from "@paypal/paypal-js"
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
+import clsx from "clsx"
 import { useCart } from "medusa-react"
 import React, { useEffect, useState } from "react"
+import { PaystackButton } from "react-paystack"
 
 type PaymentButtonProps = {
   paymentSession?: PaymentSession | null
 }
 
-const PAYSTACK_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
-
-if (!PAYSTACK_PUBLIC_KEY) {
-  console.error("Paystack Public Key not set")
-}
-
 const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
   const [notReady, setNotReady] = useState(true)
   const { cart } = useCart()
+
+  console.log(paymentSession)
 
   useEffect(() => {
     setNotReady(true)
@@ -61,12 +59,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
       )
     case "paystack":
       return (
-        <ThemedPaystackButton
-          currency={String(cart?.region.currency_code)}
-          amount={Number(cart?.total)}
-          email={String(cart?.email)}
-          publicKey={String(PAYSTACK_PUBLIC_KEY)}
-        />
+        <PaystackPaymentButton notReady={notReady} session={paymentSession} />
       )
     default:
       return <Button disabled>Select a payment method</Button>
@@ -252,6 +245,43 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
     <Button disabled={submitting || notReady} onClick={handlePayment}>
       {submitting ? <Spinner /> : "Checkout"}
     </Button>
+  )
+}
+
+const PAYSTACK_PUBLIC_KEY = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || ""
+
+const PaystackPaymentButton = ({
+  session,
+  notReady,
+}: {
+  session: PaymentSession
+  notReady: boolean
+}) => {
+  const { cart } = useCart()
+  const { onPaymentCompleted } = useCheckout()
+
+  console.log(session)
+
+  const txRef = String(session.data?.paystackTxRef)
+  const total = cart?.total || 0
+  const email = cart?.email || ""
+  const currency =
+    cart?.region.currency_code.toUpperCase() === "GHS" ? "GHS" : "NGN" // Update this to your currency
+
+  return (
+    <PaystackButton
+      amount={total}
+      publicKey={PAYSTACK_PUBLIC_KEY}
+      email={email}
+      currency={currency}
+      reference={txRef}
+      text="Pay with Paystack"
+      onSuccess={onPaymentCompleted}
+      className={clsx(
+        "w-full uppercase flex items-center justify-center min-h-[50px] px-5 py-[10px] text-small-regular border transition-colors duration-200 disabled:opacity-50",
+        "text-white bg-[#3bb75e] border-[#3bb75e] hover:bg-white hover:text-[#3bb75e] disabled:hover:bg-gray-900 disabled:hover:text-white"
+      )}
+    />
   )
 }
 

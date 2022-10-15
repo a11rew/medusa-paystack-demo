@@ -19,5 +19,8 @@
   "license": "ISC",
   "devDependencies": {
     "nx": "^14.8.2"
+  },
+  "dependencies": {
+    "medusa-payment-paystack": "^0.0.3"
   }
 }
