@@ -16,6 +16,14 @@ Make sure you have [PNPM](https://pnpm.io/installation) on your machine.
 
 Create a [Paystack](https://paystack.com/) account if you do not already have one, obtain your public key and secret key from the dashboard.
 
+### Seed Database
+
+Prepopulate an sqlite database for use in the backend.
+
+```shell
+pnpm --filter backend seed
+```
+
 ### Configure Environment Variables
 
 Add your Paystack secret key to your backend's environment file.
@@ -31,7 +39,7 @@ Add your Paystack secret key to your storefront's environment file.
 ```
 // apps/storefront/.env
 
-NEXT_PAYSTACK_PUBLIC_KEY=pk_test|live_XXXXXXXXXXXXXX
+NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=pk_test|live_XXXXXXXXXXXXXX
 ```
 
 ### Install dependencies
