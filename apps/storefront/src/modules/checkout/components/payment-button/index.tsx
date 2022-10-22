@@ -18,8 +18,6 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
   const [notReady, setNotReady] = useState(true)
   const { cart } = useCart()
 
-  console.log(paymentSession)
-
   useEffect(() => {
     setNotReady(true)
 
@@ -259,8 +257,6 @@ const PaystackPaymentButton = ({
 }) => {
   const { cart } = useCart()
   const { onPaymentCompleted } = useCheckout()
-
-  console.log(session)
 
   const txRef = String(session.data?.paystackTxRef)
   const total = cart?.total || 0
