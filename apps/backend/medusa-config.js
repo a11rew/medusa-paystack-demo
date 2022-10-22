@@ -53,7 +53,7 @@ const plugins = [
   {
     resolve: `medusa-payment-paystack`,
     options: {
-      api_key: process.env.PAYSTACK_SECRET_KEY,
+      secret_key: process.env.PAYSTACK_SECRET_KEY,
     },
   },
   // Uncomment to add Stripe support.

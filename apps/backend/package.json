@@ -10,12 +10,12 @@
     "start": "medusa develop"
   },
   "dependencies": {
-    "@medusajs/medusa": "^1.3.7",
+    "@medusajs/medusa": "^1.5.0",
     "@medusajs/medusa-cli": "^1.3.1",
     "medusa-fulfillment-manual": "^1.1.31",
     "medusa-interfaces": "^1.3.3",
     "medusa-payment-manual": "^1.0.16",
-    "medusa-payment-paystack": "^0.2.0",
+    "medusa-payment-paystack": "^0.3.0",
     "medusa-payment-stripe": "^1.1.43",
     "sqlite3": "^5.1.1",
     "typeorm": "^0.2.36"
